@@ -1,0 +1,223 @@
+
+##get root access using sudo
+sudo su -
+
+## As the root user, update your OS
+apt-get update
+
+## Install NGINX:
+apt-get install nginx -y
+
+## create vm
+gcloud compute instances create <name> --zone us-central1-c
+
+## help
+gcloud config --help
+
+##view the list of configuration in our environment
+gcloud config list
+
+-------------------------------------------------------------------
+########## managing cloud storage data
+##use the gsutil tool in Cloud Shell to manage Cloud Storage resources. 
+##This includes creating and deleting buckets and objects, copying and moving 
+##storage data, and managing bucket and object ACLs. gsutil will also let you 
+##transfer data in and out of your Cloud Shell instance.
+
+##creating a Cloud Storage bucket
+gsutil mb gs://bucket name
+
+##create test file
+vi test.dat
+i #start the editor
+<esc> #press
+:wq # save
+
+##.
+ upload some data to the bucket you created
+
+gsutil cp <fielname> gs://unique-name
+
+##If you want to copy an entire directory tree you need to use the -r option:
+
+gsutil cp -r dir gs://my-bucket
+
+############ install jupyter notebook
+
+##
+sudo apt-get update
+
+##
+wget https://repo.continuum.io/archive/Anaconda3-5.3.1-Linux-x86_64.sh
+
+##
+bash Anaconda3-5.3.1-Linux-x86_64.sh
+
+##Make use of your configuration file:
+source ~/.bashrc
+
+##Generate a Jupyter configuration file:
+jupyter notebook --generate-config
+
+##Choose a password:
+jupyter notebook password
+
+./anaconda3/bin/jupyter notebook password
+
+##get the jupyter password (not the password we set)
+more /home/<username> /.jupyter/jupyter_notebook_config.json
+sha1:90bf64b087fd:06f9a5a4d97937e78eaca72295f96ba24103ea48
+
+###Now edit the file:
+nano ./.jupyter/jupyter_notebook_config.py
+
+
+#Ctrl + w  .password   enter, add  the password and erase the hash
+#Ctrl + w  .port   enter, add  the port 5000
+#Ctrl + w  .ip   enter, add  *
+#Ctrl + o to save, then press 'enter'
+#Ctrl x,to exit
+
+## open jupyter notebook
+jupyter-notebook --no-browser
+
+## keep jupyter - notebook run background
+ctrl z
+bg
+
+## upload file from local
+
+##install unzip 
+sudo apt-get install unzip
+unzip fielname
+ls
+
+###########upload data from kaggle
+
+pip install kaggle
+
+## make a directory name
+mkdir .kaggle
+
+## move file to the directory
+
+## move file to the directory
+
+mv kaggle.json(fielname) ~/.kaggle
+
+## chmod 600 ~/.kaggle/kaggle.json
+
+## download datasets
+
+kaggle datasets download <owner>/<dataset_name>
+(<owner>/<dataset-name> is the last part of dataset url
+Eg: ps://www.kaggle.com/lava18/google-play-store-apps)
+
+
+##############create bucket
+
+## transfer data to bucket
+sudo gsutil cp filename gs://my-bucket
+
+##############create datalab
+
+## create datalab
+
+datalab create --zone $ZONE $INSTANCE_NAME
+(replace $ZONE and $INSTANCE_NAME, e.g., us-central1-a
+	eg:datalab create --zone us-west1-b datalab-xuxiazhuang)
+
+##Use the Web Preview button in CloudShell
+
+##To reconnect (if laptop goes to sleep):
+datalab connect --zone $ZONE $INSTANCE_NAME
+
+## access files
+!pip install gcsfs
+import pandas as pd
+import gcsfs
+fs = gcsfs.GCSFileSystem(project='my-project id') 
+with fs.open('bucket/path.csv') as f:
+  df = pd.read_csv(f)
+
+## stop datalab instance
+datalab stop --zone $ZONE $INSTANCE_NAME
+
+##################set up spark
+
+##use the bare metal instance on which you installed Jupyter
+
+## install java & scala
+sudo apt-get update
+sudo apt-get install default-jre 
+java –version
+sudo apt-get install scala 
+scala –version
+
+## install py4j
+which pip (otherwise need conda install pip) 
+pip install py4j
+
+## install spark
+wget https://archive.apache.org/dist/spark/spark-2.3.3/spark-2.3.3-bin-hadoop2.7.tgz
+
+gunzip spark-2.3.3-bin-hadoop2.7.tgz
+tar -xvf spark-2.3.3-bin-hadoop2.7.tar
+
+##Tell it where to find Spark:
+export SPARK_HOME=‘/home/<owner>/spark-2.3.3-bin-hadoop2.7’ export PATH=$SPARK_HOME:$PATH
+export PYTHONPATH=$SPARK_HOME/python:$PYTHONPATH
+
+##Now open up a Jupyter notebook from the bare metal instance and type:
+
+from pyspark import SparkContext sc=SparkContext()
+(if it is installed correctly it should go through fine)
+
+
+
+
+
+6.16
+Writing default config to: /home/xz9/.jupyter/jupyter_notebook_config.py
+ password:1234
+
+sha1:1d5074018dca:eaedfb836b9a19a2b14627575b8837dff489f8a2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
