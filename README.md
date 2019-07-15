@@ -1,0 +1,12 @@
+# OPS813 Cloud Computing __google cloud 
+
+How to install jupyter notebook in google cloud
+
+mtg01: Set up instance 
+
+mtg02: Install jupyter notebook, Ingesting Data & Data Analytics on instnce
+
+mtg03: Docker containers, Datalab, Cloud SQL
+
+mtg04 
+
